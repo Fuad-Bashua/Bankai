@@ -1,0 +1,171 @@
+body {
+    background: #222;
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    /* Allow scrolling if screen is too small */
+    overflow-y: auto;
+  }
+  /* Start Screen */
+  #startScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+  }
+  /* Game Container */
+  .container {
+    display: none; /* Hidden until game starts */
+    justify-content: space-around;
+    align-items: center;
+    min-height: 60vh; /* Enough space for bars */
+    padding-top: 20px;
+  }
+  .character {
+    text-align: center;
+    position: relative;
+  }
+  .stats {
+    margin-bottom: 20px;
+  }
+  .bar-container {
+    margin: 5px 0;
+  }
+  .bar {
+    width: 250px;
+    height: 20px;
+    background: #444;
+    border: 1px solid #000;
+    position: relative;
+  }
+  .health, .energy {
+    height: 100%;
+    width: 100%;
+  }
+  .health { background: red; }
+  .energy { background: blue; }
+
+  /* Moves container */
+  .moves {
+    display: none; /* Show once game starts */
+    justify-content: center;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .moves button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* Kageoni shadow sword effect */
+  .kageoni-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    opacity: 0;
+    animation: fadeInOut 0.8s forwards;
+  }
+  @keyframes fadeInOut {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    50%  { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+  }
+
+  /* Bankai Animations */
+  /* Act 1 flash */
+  .flash {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.3);
+    z-index: 100;
+  }
+  /* Act 2: Red hole effect on computer */
+  .hole {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: visible;
+  }
+  .hole::after {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    width: 4px;
+    height: 0;
+    background: red;
+    transform: translateX(-50%);
+    animation: drip 1s infinite;
+  }
+  @keyframes drip {
+    0%   { height: 0;   opacity: 1; }
+    50%  { height: 20px; opacity: 0.7; }
+    100% { height: 40px; opacity: 0; }
+  }
+  /* Act 3: Underwater effect */
+  .underwater {
+    filter: blur(1px) brightness(0.8) saturate(1.2);
+  }
+  .underwater::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 100, 200, 0.2);
+    pointer-events: none;
+  }
+  /* Act 4: String and curtains */
+  .string {
+    position: absolute;
+    top: 10%;
+    left: -200px;
+    font-size: 24px;
+    color: white;
+    white-space: nowrap;
+    animation: moveString 5s linear forwards;
+    z-index: 150;
+  }
+  @keyframes moveString {
+    0%   { left: -200px; }
+    100% { left: 100%;   }
+  }
+  .curtain {
+    position: fixed;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #000;
+    z-index: 200;
+  }
+  .curtain.left {
+    left: -50%;
+    animation: leftCurtain 2s forwards;
+    animation-delay: 5s;
+  }
+  .curtain.right {
+    right: -50%;
+    animation: rightCurtain 2s forwards;
+    animation-delay: 5s;
+  }
+  @keyframes leftCurtain {
+    to { left: 0; }
+  }
+  @keyframes rightCurtain {
+    to { right: 0; }
+  }
